@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import matplotlib.pyplot as plt 
 
 def main():
     url = "https://news.ycombinator.com/item?id=29782099"
@@ -15,13 +16,14 @@ def main():
         comment_text = comment.get_text().lower()   ##removes html tags and lowercase everything
         words = comment_text.split(" ")
         words = {w.strip(".,/;'!@-|+") for w in words}  #removes certain characters in a set
-        print(words)
         for k in keywords:  #now at each iteration go through each key in dictionary to see if it matches 
             if k in words:      
                 keywords[k] += 1
     
-    
-
+    plt.bar(keywords.keys(), keywords.values()) #specify x and y axis
+    plt.xlabel("Language")
+    plt.ylabel("# of Mentions")    
+    plt.show()
 
 if __name__ == "__main__":
     main()
